@@ -1,5 +1,5 @@
 <template>
-  <section class="md:max-w-md mx-auto md:mb-32">
+  <section class="md:max-w-xl mx-auto md:mb-32">
     <!-- Result Card -->
     <result/>
     <!-- Options Card -->
@@ -35,26 +35,7 @@
   </section>
 </template>
 
-<script>
-import DrinkSelection from '~/components/DrinkSelection.vue'
-import AgeCounter from '~/components/AgeCounter.vue'
-import WeightCounter from '~/components/WeightCounter.vue'
-import Result from '~/components/Result.vue'
-import HeightSlider from '~/components/HeightSlider.vue'
-import HourSlider from '~/components/HourSlider.vue'
-import GenderSelection from '~/components/GenderSelection.vue'
-
-export default {
-  components: {
-    Result,
-    DrinkSelection,
-    AgeCounter,
-    WeightCounter,
-    HeightSlider,
-    HourSlider,
-    GenderSelection
-  },
-}
+<script setup>
 </script>
 
 <style scoped lang="scss">

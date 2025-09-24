@@ -18,7 +18,7 @@ export default {}
     rgb(255, 255, 255) 10%,
     rgba(255, 255, 255, 0)
   );
-  @apply absolute pin-l pin-y z-20;
+  @apply absolute left-0 top-0 bottom-0 z-20;
 }
 .gradient-right {
   width: 100px;
@@ -27,6 +27,6 @@ export default {}
     rgb(255, 255, 255),
     rgba(255, 255, 255, 0)
   );
-  @apply absolute pin-r pin-y z-20;
+  @apply absolute right-0 top-0 bottom-0 z-20;
 }
 </style>

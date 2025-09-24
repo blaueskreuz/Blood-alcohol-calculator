@@ -1,88 +1,61 @@
 <template>
-  <card class="px-8 sm:px-12 md:px-16 py-6 mt-6">
-    <h3
-      class="text-xl mx-auto text-center max-w-xxs leading-tight"
-    >Vergangene Zeit nach dem ersten Drink</h3>
-    <div class="flex">
-      <div class="flex-1 flex-center h-32">
-        <div class="w-full">
-          <vue-slider
-            v-model="hours"
-            :process-style="lineStyle"
-            :rail-style="lineStyle"
-            :interval="0.5"
-            :min="0.5"
-            :max="24"
-            tooltip="none"
-          >
-            <template v-slot:dot="{ value, focus }">
-              <div :class="['custom-dot', { focus }]"></div>
-            </template>
-          </vue-slider>
-        </div>
-      </div>
-      <div class="flex-1 flex-center h-32">
-        <h3 class="text-3xl">
-          <no-ssr>
-            <count-up :endVal="hours" :duration="0.01" :options="options"/>
-          </no-ssr>
+    <card class="px-8 sm:px-12 md:px-16 py-6 mt-6">
+        <h3 class="text-xl mx-auto text-center max-w-xxs leading-tight">
+            {{ $t('time_since_first_drink') }}
         </h3>
-      </div>
-    </div>
-  </card>
+        <div class="flex">
+            <div class="flex-1 flex-center h-32">
+                <div class="w-full">
+                    <Slider v-model="hours" :min="0.5" :max="24" :step="0.5" class="slider-blue" />
+                </div>
+            </div>
+            <div class="flex-1 flex-center h-32">
+                <h3 class="text-3xl">
+                    <ClientOnly>
+                        <VueCountUp :end-val="hours" :duration="0.5" :options="options" />
+                    </ClientOnly>
+                </h3>
+            </div>
+        </div>
+    </card>
 </template>
 
-<script>
-import VueSlider from 'vue-slider-component/dist-css/vue-slider-component.umd.min.js'
-import 'vue-slider-component/dist-css/vue-slider-component.css'
-import 'vue-slider-component/theme/default.css'
-import { mapState, mapMutations } from 'vuex'
+<script setup>
+import { computed } from 'vue'
+import { useCalculatorStore } from '~/store/calculator'
 
-export default {
-  components: {
-    VueSlider
-  },
+// Import the new components
+import Slider from '@vueform/slider'
+import VueCountUp from 'vue-countup-v3'
+import '@vueform/slider/themes/default.css'
 
-  data() {
-    return {
-      hour: 0.5,
-      lineStyle: { backgroundColor: '#EFEFEF' },
-      options: {
-        decimalPlaces: 1,
-        suffix: 'h'
-      }
-    }
-  },
+const calculatorStore = useCalculatorStore()
 
-  computed: {
-    ...mapState('calculator', ['input']),
-
-    hours: {
-      get() {
-        return this.input.hoursSinceFirstDrink
-      },
-      set(value) {
-        this.updateHoursSinceFirstDrink(value)
-      }
-    }
-  },
-
-  methods: {
-    ...mapMutations('calculator', ['updateHoursSinceFirstDrink'])
-  }
+const options = {
+    decimalPlaces: 1,
+    suffix: 'h'
 }
+
+const hours = computed({
+    get() {
+        return calculatorStore.input.hoursSinceFirstDrink
+    },
+    set(value) {
+        calculatorStore.updateHoursSinceFirstDrink(value)
+    }
+})
 </script>
 
-<style lang="scss" scoped>
-.custom-dot {
-  transform: scale(1.5);
-  transition: all 0.3s;
-  @apply w-full h-full rounded-full bg-blue;
+<style lang="scss">
+/* Styles for the slider */
+.slider-blue {
+    --slider-connect-bg: #5CB4FF;
+    --slider-tooltip-bg: #2D67B2;
+    --slider-handle-ring-color: #5CB4FF;
 }
-.custom-dot:hover {
-  transform: scale(1.8);
-}
-.custom-dot.focus {
-  transform: scale(2.5);
+
+.slider-tooltip {
+
+    display: none;
 }
 </style>

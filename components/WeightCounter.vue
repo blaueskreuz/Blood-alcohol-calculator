@@ -1,15 +1,15 @@
 <template>
   <card class="py-6 px-4">
-    <h3 class="text-xl">Gewicht</h3>
+    <h3 class="text-xl">{{ $t('weight') }}</h3>
 
     <input
       class="w-full text-3xl sm:text-4xl font-bold text-black text-center focus:outline-none sm:mt-3 sm:mb-2"
       type="number"
       min="30"
       max="200"
-      :value="input.weight"
+      :value="calculatorStore.input.weight"
       @focus="$event.target.select()"
-      @input="updateWeight($event.target.value)"
+      @input="calculatorStore.updateWeight($event.target.value)"
     >
 
     <div>
@@ -26,51 +26,30 @@
   </card>
 </template>
 
-<script>
-import Bump from '~/components/Bump.vue'
-import Plus from '~/components/Plus.vue'
-import Minus from '~/components/Minus.vue'
-import { mapState, mapMutations } from 'vuex'
+<script setup>
+import { useCalculatorStore } from '~/store/calculator'
 
-export default {
-  components: {
-    Bump,
-    Plus,
-    Minus
-  },
+const calculatorStore = useCalculatorStore()
 
-  computed: {
-    ...mapState('calculator', ['input'])
-  },
+function increment() {
+  if (calculatorStore.input.weight < 200) {
+    calculatorStore.increaseWeight()
+  }
+}
 
-  methods: {
-    ...mapMutations('calculator', [
-      'increaseWeight',
-      'decreaseWeight',
-      'updateWeight'
-    ]),
-
-    increment() {
-      if (this.input.weight < 200) {
-        this.increaseWeight()
-      }
-    },
-
-    decrement() {
-      if (this.input.weight > 30) {
-        this.decreaseWeight()
-      }
-    }
+function decrement() {
+  if (calculatorStore.input.weight > 30) {
+    calculatorStore.decreaseWeight()
   }
 }
 </script>
 
 <style lang="scss" scoped>
-input::-webkit-outer-spin-button,
-input::-webkit-inner-spin-button {
-  /* display: none; <- Crashes Chrome on hover */
+input::-webkit-outer-sbottom-0utton,
+input::-webkit-inner-sbottom-0utton {
+
   -webkit-appearance: none;
-  margin: 0; /* <-- Apparently some margin are still there even though it's hidden */
+  margin: 0;
 }
 
 .btn-counter {

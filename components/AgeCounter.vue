@@ -1,15 +1,15 @@
 <template>
   <card class="py-6 px-4">
-    <h3 class="text-xl">Alter</h3>
+    <h3 class="text-xl">{{ $t('age') }}</h3>
 
     <input
       class="w-full text-3xl sm:text-4xl font-bold text-black text-center focus:outline-none sm:mt-3 sm:mb-2"
       type="number"
       min="16"
       max="70"
-      :value="input.age"
+      :value="calculatorStore.input.age"
       @focus="$event.target.select()"
-      @input="updateAge($event.target.value)"
+      @input="calculatorStore.updateAge($event.target.value)"
     >
 
     <div>
@@ -26,44 +26,29 @@
   </card>
 </template>
 
-<script>
-import Bump from '~/components/Bump.vue'
-import Plus from '~/components/Plus.vue'
-import Minus from '~/components/Minus.vue'
-import { mapState, mapMutations } from 'vuex'
+<script setup>
+import { useCalculatorStore } from '~/store/calculator'
 
-export default {
-  components: {
-    Bump,
-    Plus,
-    Minus
-  },
+// 1. Instantiate the Pinia store
+const calculatorStore = useCalculatorStore()
 
-  computed: {
-    ...mapState('calculator', ['input'])
-  },
+// 2. Define component-specific logic
+function increment() {
+  if (calculatorStore.input.age < 70) {
+    calculatorStore.increaseAge()
+  }
+}
 
-  methods: {
-    ...mapMutations('calculator', ['increaseAge', 'decreaseAge', 'updateAge']),
-
-    increment() {
-      if (this.input.age < 70) {
-        this.increaseAge()
-      }
-    },
-
-    decrement() {
-      if (this.input.age > 16) {
-        this.decreaseAge()
-      }
-    }
+function decrement() {
+  if (calculatorStore.input.age > 16) {
+    calculatorStore.decreaseAge()
   }
 }
 </script>
 
 <style lang="scss" scoped>
-input::-webkit-outer-spin-button,
-input::-webkit-inner-spin-button {
+input::-webkit-outer-sbottom-0utton,
+input::-webkit-inner-sbottom-0utton {
   /* display: none; <- Crashes Chrome on hover */
   -webkit-appearance: none;
   margin: 0; /* <-- Apparently some margin are still there even though it's hidden */

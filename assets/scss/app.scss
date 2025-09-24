@@ -1,4 +1,4 @@
-@tailwind preflight;
+@tailwind base;
 @tailwind components;
 
 body {
@@ -6,7 +6,7 @@ body {
 }
 
 .flex-center {
-  @apply flex .items-center .justify-center;
+  @apply flex items-center justify-center;
 }
 
 ::-webkit-scrollbar {
@@ -21,3 +21,11 @@ button {
 }
 
 @tailwind utilities;
+
+@layer {
+
+    .bg-blue-light {
+
+        background-color: #5cb4ff;
+    }
+}

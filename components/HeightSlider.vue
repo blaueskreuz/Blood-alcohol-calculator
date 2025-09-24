@@ -1,88 +1,80 @@
 <template>
-  <card class="rounded-lg shadow py-6 px-4 mt-8 text-center">
-    <h3 class="text-xl">Grösse</h3>
-    <p class="text-grey-900 text-lg font-bold mt-1 mb-3">cm</p>
-    <slide-gradient>
-      <hooper
-        ref="carousel"
-        :itemsToShow="3"
-        :centerMode="true"
-        :initialSlide="42"
-        @afterSlide="updateSlide($event)"
-      >
-        <slide v-for="(height, index) in heights" :key="height" :index="index">
-          <span class="title sm:text-4xl font-bold select-none">{{ height }}</span>
-        </slide>
-      </hooper>
+    <card class="rounded-lg shadow py-6 px-4 mt-8 text-center">
+        <h3 class="text-xl">{{ $t('height') }}</h3>
+        <p class="text-grey-900 text-lg font-bold mt-1 mb-3">cm</p>
+        <slide-gradient>
+            <ClientOnly>
+                <Carousel :items-to-show="3" v-model="currentSlide" :wrap-around="true" class="height-carousel">
+                    <Slide v-for="height in heights" :key="height">
+                        <div class="carousel__item">
+                            <span class="title sm:text-4xl font-bold select-none">{{ height }}</span>
+                        </div>
+                    </Slide>
+                </Carousel>
+            </ClientOnly>
 
-      <div class="flex-col flex-center mt-2">
-        <Bump/>
-        <img src="/ruler.svg" alt>
-      </div>
-    </slide-gradient>
-  </card>
+            <div class="flex-col flex-center mt-2">
+                <Bump />
+                <img src="/ruler.svg" alt="Ruler icon" />
+            </div>
+        </slide-gradient>
+    </card>
 </template>
 
-<script>
-import SlideGradient from '~/components/SlideGradient.vue'
-import Bump from '~/components/Bump.vue'
-import { Hooper, Navigation as HooperNavigation, Slide } from 'hooper'
-import { mapMutations } from 'vuex'
+<script setup>
+import { ref, onMounted, watch } from 'vue'
+import { useCalculatorStore } from '~/store/calculator'
 
-export default {
-  components: {
-    Hooper,
-    HooperNavigation,
-    Slide,
-    SlideGradient,
-    Bump
-  },
-  data() {
-    return {
-      heights: []
+import { Carousel, Slide } from 'vue3-carousel'
+import 'vue3-carousel/dist/carousel.css'
+
+const calculatorStore = useCalculatorStore()
+const heights = ref([])
+
+const currentSlide = ref(42)
+
+watch(currentSlide, (newIndex) => {
+    if (heights.value.length > 0) {
+        calculatorStore.updateHeight(heights.value[newIndex])
     }
-  },
+})
 
-  methods: {
-    ...mapMutations('calculator', ['updateHeight']),
-
-    generateHeights() {
-      let startHeight = 130
-      while (startHeight <= 230) {
-        this.heights.push(startHeight)
-        startHeight++
-      }
-    },
-
-    updateSlide(slide) {
-      this.updateHeight(this.heights[slide.currentSlide])
+function generateHeights() {
+    for (let i = 130; i <= 230; i++) {
+        heights.value.push(i)
     }
-  },
-
-  created() {
-    this.generateHeights()
-  }
 }
+
+onMounted(() => {
+    generateHeights()
+    // Set initial height in store
+    if (heights.value.length > 0) {
+        calculatorStore.updateHeight(heights.value[currentSlide.value])
+    }
+})
 </script>
 
 <style lang="scss" scoped>
-.hooper {
-  height: 50px;
-}
-.hooper:focus {
-  @apply outline-none;
+.height-carousel {
+    height: 50px;
 }
 
-.hooper-slide {
-  @apply cursor-pointer flex justify-center items-end;
+.carousel__item {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    cursor: pointer;
+}
+
+.carousel__slide--active .carousel__item .title {
+    color: black;
+    font-size: 1.875rem;
 }
 
 .title {
-  transition: all 0.2s;
-  @apply text-grey-300 text-2xl;
-}
-
-.is-current .title {
-  @apply text-black text-3xl;
+    transition: all 0.2s;
+    color: #DEDEDE;
+    font-size: 1.5rem;
 }
 </style>

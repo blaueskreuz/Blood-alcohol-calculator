@@ -1,79 +1,64 @@
-<script>
-export default {
-  name: `TransitionExpand`,
-  functional: true,
-  render(createElement, context) {
-    const data = {
-      props: {
-        name: `expand`,
-      },
-      on: {
-        afterEnter(element) {
-          // eslint-disable-next-line no-param-reassign
-          element.style.height = `auto`;
-        },
-        enter(element) {
-          const { width } = getComputedStyle(element);
-          /* eslint-disable no-param-reassign */
-          element.style.width = width;
-          element.style.position = `absolute`;
-          element.style.visibility = `hidden`;
-          element.style.height = `auto`;
-          /* eslint-enable */
-          const { height } = getComputedStyle(element);
-          /* eslint-disable no-param-reassign */
-          element.style.width = '';
-          element.style.position = '';
-          element.style.visibility = '';
-          element.style.height = 0;
-          /* eslint-enable */
-          // Force repaint to make sure the
-          // animation is triggered correctly.
-          // eslint-disable-next-line no-unused-expressions
-          getComputedStyle(element).height;
-          requestAnimationFrame(() => {
-            // eslint-disable-next-line no-param-reassign
-            element.style.height = height;
-          });
-        },
-        leave(element) {
-          const { height } = getComputedStyle(element);
-          // eslint-disable-next-line no-param-reassign
-          element.style.height = height;
-          // Force repaint to make sure the
-          // animation is triggered correctly.
-          // eslint-disable-next-line no-unused-expressions
-          getComputedStyle(element).height;
-          requestAnimationFrame(() => {
-            // eslint-disable-next-line no-param-reassign
-            element.style.height = 0;
-          });
-        },
-      },
-    };
-    return createElement(`transition`, data, context.children);
-  },
+<template>
+    <transition name="expand" @enter="enter" @after-enter="afterEnter" @leave="leave">
+        <slot />
+    </transition>
+</template>
+
+<script setup>
+const enter = (element) => {
+    const { width } = getComputedStyle(element);
+    element.style.width = width;
+    element.style.position = 'absolute';
+    element.style.visibility = 'hidden';
+    element.style.height = 'auto';
+    const { height } = getComputedStyle(element);
+    element.style.width = null;
+    element.style.position = null;
+    element.style.visibility = null;
+    element.style.height = '0';
+
+    getComputedStyle(element).height;
+
+    requestAnimationFrame(() => {
+        element.style.height = height;
+    });
+};
+
+const afterEnter = (element) => {
+    element.style.height = 'auto';
+};
+
+const leave = (element) => {
+    const { height } = getComputedStyle(element);
+    element.style.height = height;
+
+    // Force repaint to make sure the animation is triggered correctly.
+    getComputedStyle(element).height;
+
+    requestAnimationFrame(() => {
+        element.style.height = '0';
+    });
 };
 </script>
 
 <style scoped>
 * {
-  will-change: height;
-  transform: translateZ(0);
-  backface-visibility: hidden;
-  perspective: 1000px;
+    will-change: height;
+    transform: translateZ(0);
+    backface-visibility: hidden;
+    perspective: 1000px;
 }
 </style>
 
 <style>
 .expand-enter-active,
 .expand-leave-active {
-  transition: height 0.5s ease-in-out;
-  overflow: hidden;
+    transition: height 0.5s ease-in-out;
+    overflow: hidden;
 }
 
-.expand-enter,
+.expand-enter-from,
 .expand-leave-to {
-  height: 0;
+    height: 0;
 }
 </style>
