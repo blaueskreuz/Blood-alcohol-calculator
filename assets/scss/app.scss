@@ -1,0 +1,23 @@
+@tailwind preflight;
+@tailwind components;
+
+body {
+  @apply font-body antialiased;
+}
+
+.flex-center {
+  @apply flex .items-center .justify-center;
+}
+
+::-webkit-scrollbar {
+  width: 0px;
+  /* Remove scrollbar space */
+  background: transparent;
+  /* Optional: just make scrollbar invisible */
+}
+
+button {
+  touch-action: manipulation;
+}
+
+@tailwind utilities;
