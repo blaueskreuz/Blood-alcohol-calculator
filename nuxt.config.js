@@ -32,10 +32,6 @@ export default defineNuxtConfig({
   loadingIndicator: {
     color: '#fff'
   },
-
-  router: {
-    middleware: ['i18n']
-  },
-
+  
   modules: ['@pinia/nuxt', '@nuxtjs/tailwindcss']
 })

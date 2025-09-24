@@ -30,7 +30,7 @@
     <footer>
       <p
         class="leading-normal mt-8 mb-16 mx-4 sm:mx-6 md:mx-0"
-      >Bei den vorliegenden Angaben und Kalkulationen handelt es sich um Schätzungen. Die Berechnungen beruhen auf statistischen Mittelwerten; Faktoren wie Gesundheitszustand, Magenfüllmenge, Körperfettanteil und Stress werden ignoriert. Da der Körper den Alkohol nicht vollständig aufnimmt, wird vom maximalen Blutalkoholwert 20% abgezogen (Resorptionsdefizit). Als Abbauwert wird eine Rate von 0,15‰ pro Stunde (ab der 1. Stunde) angenommen.</p>
+      >{{ $t('disclaimer') }}</p>
     </footer>
   </section>
 </template>
