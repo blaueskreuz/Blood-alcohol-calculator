@@ -26,7 +26,6 @@ import { useCalculatorStore } from '~/store/calculator'
 
 // Import the new components
 import Slider from '@vueform/slider'
-import VueCountUp from 'vue-countup-v3'
 import '@vueform/slider/themes/default.css'
 
 const calculatorStore = useCalculatorStore()

@@ -32,6 +32,10 @@ export default defineNuxtConfig({
   loadingIndicator: {
     color: '#fff'
   },
-  
+
+  build: {
+    transpile: ['vue-countup-v3']
+  },
+
   modules: ['@pinia/nuxt', '@nuxtjs/tailwindcss']
 })
