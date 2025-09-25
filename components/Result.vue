@@ -46,9 +46,8 @@
 
 <script setup>
 import { ref, computed, onMounted, onBeforeUnmount } from 'vue'
-import { useCalculatorStore } from '~/store/calculator' // Correct path for Nuxt 3
+import { useCalculatorStore } from '~/store/calculator'
 import throttle from 'lodash/throttle'
-import VueCountUp from 'vue-countup-v3' // 1. Import the new component
 
 // --- Pinia Store ---
 const calculatorStore = useCalculatorStore()

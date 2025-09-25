@@ -6,17 +6,19 @@
 
 ``` bash
 # install dependencies
-$ yarn install
+$ npm install
 
 # serve with hot reload at localhost:3000
-$ yarn run dev
+$ npm run dev
+``` 
 
-# build for production and launch server
-$ yarn run build
-$ yarn start
+## Prod Environment and Deployment
 
-# generate static project
-$ yarn run generate
+We use vertel to deploy to this url: blood-alcohol-calculator.vercel.app
+The deployment of the main branch can be triggered by using curl:
+``` bash
+curl https://api.vercel.com/v1/integrations/deploy/prj_nHMxtRkuInazK0GBZBSfjCR1oG4k/ugYBMQP3J7
 ```
+
 
 For detailed explanation on how things work, checkout [Nuxt.js docs](https://nuxtjs.org).
