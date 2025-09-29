@@ -1,5 +1,5 @@
 <template>
-    <card class="rounded-lg shadow py-6 px-4 mt-8 text-center">
+    <card class="rounded-lg shadow py-6 px-4 mt-3 text-center">
         <h3 class="text-xl">{{ $t('height') }}</h3>
         <p class="text-grey-900 text-lg font-bold mt-1 mb-3">cm</p>
         <slide-gradient>

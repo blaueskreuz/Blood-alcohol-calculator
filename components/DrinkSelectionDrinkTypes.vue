@@ -1,30 +1,27 @@
 <template>
-    <div>
-        <ul class="list-reset flex md:-mx-2 overflow-x-auto overflow-y-hidden pt-3 scrolling-touch">
-            <li v-for="(type, index) in drink.types" :key="type.name" class="px-2"
-                :class="{ 'pl-4 sm:pl-8 md:pl-0': index === 0 }">
-                <button
-                    class="transition duration-150 bg-blue-lightest md:hover:bg-blue-light rounded-full w-22 h-22 flex-center cursor-pointer relative focus:outline-none"
-                    @click.prevent="increaseQuantity(index)">
-                    <component :is="drinkIcons[convertComponentName(type.slug)]"/>
-                    <transition name="bounce">
-                        <div v-show="type.quantity > 0"
-                            class="rounded-full bg-red min-w-8 h-8 px-2 text-white text-xl font-bold absolute top-0 right-0 -mt-2 -mr-2 flex-center">
-                            {{ type.quantity }}</div>
-                    </transition>
-                </button>
+    <ul class="list-reset flex overflow-x-auto overflow-y-hidden scrolling-touch gap-3 pt-2">
+        <li v-for="(type, index) in drink.types" :key="type.name" class="drink">
+            <button
+                class="transition duration-150 bg-blue-lightest md:hover:bg-blue-light rounded-full h-19 w-19 flex-center cursor-pointer relative focus:outline-none"
+                @click.prevent="increaseQuantity(index)">
+                <component :is="drinkIcons[convertComponentName(type.slug)]" />
+                <transition name="bounce">
+                    <div v-show="type.quantity > 0"
+                        class="rounded-full bg-red min-w-8 h-8 px-2 text-white text-xl font-bold absolute top-0 right-0 -mt-2 -mr-2 flex-center">
+                        {{ type.quantity }}</div>
+                </transition>
+            </button>
 
-                <div class="text-center font-bold mt-3 sm:mt-4">
-                    <p>{{ $t(type.name) }}</p>
-                    <div class="text-grey-500 mt-1">
-                        <span v-if="type.decilitre === 10">1L</span>
-                        <span v-else>{{ type.decilitre }}dl</span>
-                        <span>({{ type.alcohol * 100 }}%)</span>
-                    </div>
+            <div class="text-center font-bold mt-3 sm:mt-4">
+                <p>{{ $t(type.name) }}</p>
+                <div class="text-grey-500 mt-1 flex flex-wrap gapx-1 justify-center text-sm">
+                    <span v-if="type.decilitre === 10">1L</span>&nbsp;
+                    <span v-else>{{ type.decilitre }}dl</span>&nbsp;
+                    <span>({{ type.alcohol * 100 }}%)</span>
                 </div>
-            </li>
-        </ul>
-    </div>
+            </div>
+        </li>
+    </ul>
 </template>
 
 <script setup>
@@ -88,6 +85,17 @@ function increaseQuantity(typeIndex) {
 </script>
 
 <style lang="scss" scoped>
+
+.drink {
+
+    width: 5rem;
+    max-width: 5rem;
+    min-width: 5rem;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
 .min-w-8 {
     min-width: 2rem;
 }
