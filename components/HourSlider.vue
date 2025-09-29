@@ -1,12 +1,12 @@
 <template>
-    <card class="px-8 sm:px-12 md:px-16 py-6 mt-6">
+    <card class="px-8 sm:px-12 md:px-16 py-6 mt-3">
         <h3 class="text-xl mx-auto text-center max-w-xxs leading-tight">
             {{ $t('time_since_first_drink') }}
         </h3>
         <div class="flex">
             <div class="flex-1 flex-center h-32">
                 <div class="w-full">
-                    <Slider v-model="hours" :min="0.5" :max="24" :step="0.5" class="slider-blue" />
+                    <Slider v-model="hours" :min="0.5" :max="24" :step="0.5" class="slider-blue" @slide="(val) => hours = val" />
                 </div>
             </div>
             <div class="flex-1 flex-center h-32">
@@ -21,19 +21,19 @@
 </template>
 
 <script setup>
-import { computed } from 'vue'
+import { computed, ref, watch } from 'vue'
 import { useCalculatorStore } from '~/store/calculator'
-
-// Import the new components
 import Slider from '@vueform/slider'
 import '@vueform/slider/themes/default.css'
 
 const calculatorStore = useCalculatorStore()
 
-const options = {
+const startVal = ref(0)
+const options = computed(() => ({
+    startVal: startVal.value,
     decimalPlaces: 1,
     suffix: 'h'
-}
+}))
 
 const hours = computed({
     get() {
@@ -42,6 +42,10 @@ const hours = computed({
     set(value) {
         calculatorStore.updateHoursSinceFirstDrink(value)
     }
+})
+
+watch(hours, (newValue, oldValue) => {
+    startVal.value = oldValue
 })
 </script>
 

@@ -9,6 +9,7 @@
     "time_since_first_drink": "Vergangene Zeit nach dem ersten Drink",
     "gender": "Geschlecht",
     "i_am": "Ich bin",
+    "reset": "Zurücksetzen",
 
     "beer": "Bier",
     "wine": "Wein",
@@ -46,6 +47,7 @@
     "time_since_first_drink": "Time since first drink",
     "gender": "Gender",
     "i_am": "I am a",
+    "reset": "Reset",
 
     "beer": "Beer",
     "wine": "Wine",
@@ -74,7 +76,7 @@
     "disclaimer": "The information and calculations provided are estimates. The calculations are based on statistical averages; factors such as health status, stomach content, body fat percentage and stress are ignored. Since the body does not completely absorb the alcohol, 20% is deducted from the maximum blood alcohol value (resorption deficit). A degradation rate of 0.15‰ per hour (from the 1st hour) is assumed."
   },
   "fr": {
-    "consumed_alcohol": "Alcool consommé",
+    "consumed_alcohol": "Alcool",
     "blood_alcohol_content": "Alcoolémie",
     "breakdown_time": "Temps de dégradation",
     "age": "Âge",

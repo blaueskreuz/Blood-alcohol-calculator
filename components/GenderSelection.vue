@@ -1,15 +1,15 @@
 <template>
-  <card class="px-6 sm:px-8 md:px-10 py-6 mt-6">
+  <card class="px-6 sm:px-8 md:px-10 py-6 mt-3">
     <h3 class="text-xl text-center">{{ $t('gender') }}</h3>
     <h3 class="text-center hidden sm:block label text-2xl font-bold">{{ $t('i_am') }}</h3>
-    <div class="flex items-center justify-center mt-6">
-      <div class="flex-1 border-7 rounded-md text-grey-100">
+    <div class="mt-6">
+      <div class="flex-1 rounded-md text-grey-100">
         <div class="flex">
-          <div class="box" :class="{'bg-blue-lightest' : calculatorStore.input.isMale}" @click="calculatorStore.updateGender(true)">
+          <div class="box aspect-square rounded-full" :class="{'bg-blue-lightest' : calculatorStore.input.isMale}" @click="calculatorStore.updateGender(true)">
             <male/>
           </div>
           <div
-            class="box"
+            class="box aspect-square rounded-full"
             :class="{'bg-blue-lightest' : !calculatorStore.input.isMale}"
             @click="calculatorStore.updateGender(false)"
           >
